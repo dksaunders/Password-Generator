@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 from random import randrange
 
 
@@ -25,17 +26,15 @@ def word_list(words, count=5, sides=6):
 
 
 def main():
-    word_count = 0
+    parser = argparse.ArgumentParser(
+        prog='(Virtual) Diceware Password Generate',
+        description='A program that rolls virtual dice to generate a passphrase.'
+    )
+    parser.add_argument('words', type=int, help='number of words in the password')
+    parser.add_argument('-s', '--separator', type=str, default='-', help='character to separate words')
+    args = parser.parse_args()
 
-    try:
-        word_count = int(argv[1])
-    except IndexError:
-        raise IndexError(
-            'Pass in the number of words to include in the password.')
-    except ValueError:
-        raise ValueError('The argument passed must be an integer value.')
-
-    password = '-'.join(word_list(word_count))
+    password = args.separator.join(word_list(args.words))
     print(password)
 
 
