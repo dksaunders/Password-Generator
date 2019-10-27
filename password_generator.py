@@ -8,14 +8,14 @@ def dice(count=5, sides=6):
     return [randrange(1, sides+1) for _ in range(count)]
 
 
-def lookup(index):
-    index = ''.join(str(x) for x in index)
+def lookup(dice_roll):
+    dice_roll = ''.join(str(x) for x in dice_roll)
 
     with open('eff_large_wordlist.txt', 'r') as words:
         for line in words:
-            element = line.split('\t')
-            if int(element[0] == index):
-                return element[1].strip('\n')
+            dice_index, word = line.split('\t')
+            if int(dice_index == dice_roll):
+                return word.strip('\n')
 
     raise IndexError('Index not in Word List.')
 
