@@ -4,11 +4,11 @@ import argparse
 from random import randrange
 
 
-def dice(count=5, sides=6):
+def dice(count: int = 5, sides: int = 6) -> list:
     return [randrange(1, sides+1) for _ in range(count)]
 
 
-def lookup(dice_roll):
+def lookup(dice_roll: list) -> str:
     dice_roll = ''.join(str(x) for x in dice_roll)
 
     with open('eff_large_wordlist.txt', 'r') as words:
@@ -20,9 +20,9 @@ def lookup(dice_roll):
     raise IndexError('Index not in Word List.')
 
 
-def word_list(words, count=5, sides=6):
+def word_list(words: int) -> list:
     for _ in range(words):
-        yield lookup(dice(count, sides))
+        yield lookup(dice())
 
 
 def main():
@@ -30,7 +30,7 @@ def main():
         prog='(Virtual) Diceware Password Generate',
         description='A program that rolls virtual dice to generate a passphrase.'
     )
-    parser.add_argument('words', type=int, help='number of words in the password')
+    parser.add_argument('words', required=True, type=int, help='number of words in the password')
     parser.add_argument('-s', '--separator', type=str, default='-', help='character to separate words')
     args = parser.parse_args()
 
