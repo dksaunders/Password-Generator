@@ -30,8 +30,17 @@ def main():
         prog='(Virtual) Diceware Password Generate',
         description='A program that rolls virtual dice to generate a passphrase.'
     )
-    parser.add_argument('words', required=True, type=int, help='number of words in the password')
-    parser.add_argument('-s', '--separator', type=str, default='-', help='character to separate words')
+    parser.add_argument(
+        'words',
+        type=int,
+        help='number of words in the password'
+    )
+    parser.add_argument(
+        '-s', '--separator',
+        type=str,
+        default='-',
+        help='character to separate words'
+    )
     args = parser.parse_args()
 
     password = args.separator.join(word_list(args.words))
